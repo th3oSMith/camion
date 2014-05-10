@@ -1,0 +1,19 @@
+<section data-ng-controller="CampaignsController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1>{{campaign.name}}</h1>
+	</div>
+	<section>
+		<p><b>Start</b> : {{campaign.start}}</p>
+	</section>
+	<div class="pull-right" data-ng-show="authentication.user._id == campaign.user._id">
+		<a class="btn btn-primary" href="/#!/campaigns/{{campaign._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<small>
+		<em class="text-muted">Posted on {{campaign.created | date:'mediumDate'}} by {{campaign.user.displayName}}</em>
+	</small>
+</section>
