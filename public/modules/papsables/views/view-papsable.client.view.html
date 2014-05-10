@@ -1,0 +1,21 @@
+<section data-ng-controller="PapsablesController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1>{{papsable.name}}</h1>
+	</div>
+	<section>
+		<p><b>Quantité disponible</b> : {{papsable.amount}}</p>
+		<p ng-repeat='item in papsable.properties'><b>{{item.key}}</b> : {{item.value}}</p>
+		</ul>
+	</section>
+	<div class="pull-right" data-ng-show="authentication.user._id == papsable.user._id">
+		<a class="btn btn-primary" href="/#!/papsables/{{papsable._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<small>
+		<em class="text-muted">Posted on {{papsable.created | date:'mediumDate'}} by {{papsable.user.displayName}}</em>
+	</small>
+</section>

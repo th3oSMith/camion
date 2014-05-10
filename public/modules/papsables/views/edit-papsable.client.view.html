@@ -1,0 +1,36 @@
+<section data-ng-controller="PapsablesController" data-ng-init="findOne()">
+    <div class="page-header">
+        <h1>Edit Papsable</h1>
+    </div>
+    <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="update()" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label" for="name">Name</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="papsable.name" id="name" class="form-control" placeholder="Name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="amount">Amount</label>
+                    <div class="controls">
+                        <input type="number" data-ng-model="papsable.amount" id="amount" class="form-control" placeholder="Amount" required>
+                    </div>
+                </div>
+                <div>
+                    <p>Properties :</p>
+                    <ul>
+                        <li ng-repeat='item in papsable.properties'><input ng-model="item.key" type="text"> : <input type="text" ng-model="item.value" > - <a ng-click="papsable.properties.splice($index,1)">Supprimer</a></li></li>
+                    </ul>
+                <a ng-click="papsable.properties.push({key: '', value: ''})">+</a>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong>{{error}}</strong>
+				</div>
+            </fieldset>
+        </form>
+    </div>
+</section>
