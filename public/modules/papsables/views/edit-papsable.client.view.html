@@ -18,6 +18,13 @@
                     </ul>
                 <a ng-click="papsable.properties.push({key: '', value: ''})">+</a>
                 </div>
+                <div>
+                    <p>Crénaux :</p>
+                    <ul>
+                        <li ng-repeat='item in papsable.slots track by $index'><input ng-model="papsable.slots[$index]" type="text"> - <a ng-click="papsable.slots.splice($index,1)">Supprimer</a></li></li>
+                    </ul>
+                <a ng-click="papsable.slots.push('')">+</a>
+                </div>
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
                 </div>

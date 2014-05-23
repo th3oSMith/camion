@@ -27,7 +27,11 @@ var PapsableSchema = new Schema({
 	properties: {
 		type: Schema.Types.Mixed,
 		default: {}
-	}
+	},
+	slots: [{
+		type: String,
+		trim: true
+	}]
 });
 
 mongoose.model('Papsable', PapsableSchema);

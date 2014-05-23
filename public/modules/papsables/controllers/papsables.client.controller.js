@@ -11,6 +11,7 @@ angular.module('papsables').controller('PapsablesController', ['$scope', '$state
             var papsable = new Papsables({
                 name: this.name,
                 properties: this.properties,
+                slots: this.slots,
                 amount: this.amount
             });
 
@@ -67,6 +68,8 @@ angular.module('papsables').controller('PapsablesController', ['$scope', '$state
 
         $scope.initProperties = function(){
             $scope.properties = [];
+            $scope.slots = [];
+            $scope.slots = [];
         };
     }
 ]);

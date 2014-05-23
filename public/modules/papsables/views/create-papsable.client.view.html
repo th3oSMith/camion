@@ -18,6 +18,13 @@
                     </ul>
                     <a ng-click="properties.push({key: '', value: ''})">+</a>
                 </div>
+                <div>
+                    <p>Crénaux :</p>
+                    <ul>
+                        <li ng-repeat='item in slots track by $index'><input ng-model="slots[$index]" type="text"> - <a ng-click="slots.splice($index,1)">Supprimer</a></li></li>
+                    </ul>
+                <a ng-click="slots.push('')">+</a>
+                </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">
                 </div>

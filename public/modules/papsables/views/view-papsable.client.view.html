@@ -3,7 +3,11 @@
 		<h1>{{papsable.name}}</h1>
 	</div>
 	<section>
+		<h4>Propriétés</h4>
 		<p ng-repeat='item in papsable.properties'><b>{{item.key}}</b> : {{item.value}}</p>
+		<h4>Créneaux</h4>
+		<ul>
+			<li ng-repeat="slot in papsable.slots">{{slot}}</li>
 		</ul>
 	</section>
 	<div class="pull-right" data-ng-show="authentication.user._id == papsable.user._id">
