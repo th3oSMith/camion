@@ -24,11 +24,6 @@ var PapsableSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	amount: {
-		type: Number,
-		default: 0,
-		required: 'Please set the number of element available',
-	},
 	properties: {
 		type: Schema.Types.Mixed,
 		default: {}
