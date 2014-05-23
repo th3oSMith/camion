@@ -4,6 +4,7 @@
 angular.module('campaigns').controller('CampaignsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Campaigns', 'Papsables',
     function($scope, $stateParams, $location, Authentication, Campaigns, Papsables) {
         $scope.authentication = Authentication;
+        $scope.hideCalendar = true;
 
         // Create new Campaign
         $scope.create = function() {
