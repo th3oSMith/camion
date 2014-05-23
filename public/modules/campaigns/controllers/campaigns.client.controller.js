@@ -6,9 +6,19 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
         $scope.authentication = Authentication;
         $scope.hideCalendar = true;
 
+
         // Create new Campaign
         $scope.create = function() {
-        	// Create new Campaign object
+            // Create new Campaign object
+            
+            // Mise en forme des papsables
+            var x = 0;
+            for (x=0; x<this.campaignPapsables.length; x++)
+                this.campaignPapsables[x].object = this.campaignPapsables[x].object._id;
+            
+            console.log(this.campaignPapsables);
+
+
             var campaign = new Campaigns({
                 name: this.name,
                 start: this.start,

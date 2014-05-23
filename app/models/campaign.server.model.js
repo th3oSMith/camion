@@ -36,6 +36,9 @@ var CampaignSchema = new Schema({
 		amount: {
 			type: Number,
 			required: 'Spécifier la quantité !'
+		},
+		slot: {
+			type: String
 		}
 	}]
 });
