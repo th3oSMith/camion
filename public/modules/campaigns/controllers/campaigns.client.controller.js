@@ -1,8 +1,8 @@
 'use strict';
 
 // Campaigns controller
-angular.module('campaigns').controller('CampaignsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Campaigns',
-    function($scope, $stateParams, $location, Authentication, Campaigns) {
+angular.module('campaigns').controller('CampaignsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Campaigns', 'Papsables',
+    function($scope, $stateParams, $location, Authentication, Campaigns, Papsables) {
         $scope.authentication = Authentication;
 
         // Create new Campaign
@@ -10,7 +10,8 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
         	// Create new Campaign object
             var campaign = new Campaigns({
                 name: this.name,
-                start: this.start
+                start: this.start,
+                papsables: this.campaignPapsables
             });
 
             // Redirect after save
@@ -20,8 +21,6 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
 				$scope.error = errorResponse.data.message;
 			});
 
-            // Clear form fields
-            this.name = '';
         };
 
         // Remove existing Campaign
@@ -66,6 +65,14 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
 
         $scope.onTimeSet = function(){
             $scope.hideCalendar = true;
-        }
+        };
+
+        $scope.findPapsables = function(){
+            $scope.papsables = Papsables.query();
+            $scope.campaignPapsables = [];
+        };
+
+
+
     }
 ]);

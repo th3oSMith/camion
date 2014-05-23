@@ -27,7 +27,17 @@ var CampaignSchema = new Schema({
 	start: {
 		type: Date,
 		required: 'Please set a start date for the campaign'
-	}
+	},
+	papsables: [{
+		object:{
+			type: Schema.ObjectId,
+			ref: 'Papsable'
+			},
+		amount: {
+			type: Number,
+			required: 'Spécifier la quantité !'
+		}
+	}]
 });
 
 mongoose.model('Campaign', CampaignSchema);

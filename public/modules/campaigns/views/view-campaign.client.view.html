@@ -4,6 +4,9 @@
 	</div>
 	<section>
 		<p><b>Start</b> : {{campaign.start}}</p>
+		<div ng-repeat="item in campaign.papsables">
+			<p>{{item.object.name}} --> {{item.amount}}</p>
+		</div>
 	</section>
 	<div class="pull-right" data-ng-show="authentication.user._id == campaign.user._id">
 		<a class="btn btn-primary" href="/#!/campaigns/{{campaign._id}}/edit">

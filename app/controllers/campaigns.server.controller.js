@@ -111,7 +111,7 @@ exports.list = function(req, res) {
  * Campaign middleware
  */
 exports.campaignByID = function(req, res, next, id) {
-	Campaign.findById(id).populate('user', 'displayName').exec(function(err, campaign) {
+	Campaign.findById(id).populate('user', 'displayName').populate('papsables.object').exec(function(err, campaign) {
 		if (err) return next(err);
 		if (!campaign) return next(new Error('Failed to load Campaign ' + id));
 		req.campaign = campaign;
