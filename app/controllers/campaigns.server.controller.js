@@ -96,7 +96,13 @@ exports.delete = function(req, res) {
  * List of Campaigns
  */
 exports.list = function(req, res) {
-	Campaign.find().sort('-created').populate('user', 'displayName').exec(function(err, campaigns) {
+
+	var q = Campaign.find().sort('-created').populate('user', 'displayName');
+
+	if (Object.keys(req.query).length > 0)
+		q.where('start').gte(new Date());
+
+	q.exec(function(err, campaigns) {
 		if (err) {
 			return res.send(400, {
 				message: getErrorMessage(err)
