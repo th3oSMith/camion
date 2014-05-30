@@ -12,7 +12,8 @@ angular.module('papsables').controller('PapsablesController', ['$scope', '$state
                 name: this.name,
                 properties: this.properties,
                 slots: this.slots,
-                amount: this.amount
+                amount: this.amount,
+                max: this.max
             });
 
             console.log(this.properties);

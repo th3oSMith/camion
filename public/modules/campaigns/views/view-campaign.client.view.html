@@ -11,11 +11,13 @@
 				<th>Nom</th>
 				<th>Créneau</th>
 				<th>Quantité</th>
+				<th>Maximum</th>
 			</tr>
 			<tr ng-repeat="item in campaign.papsables">
 				<td>{{item.object.name}}</td>
 				<td>{{item.slot}}</td>
 				<td>{{item.amount}}</td>
+				<td>{{item.max}}</td>
 			</tr>
 		</table>
 	</section>

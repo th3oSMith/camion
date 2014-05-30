@@ -31,8 +31,9 @@
                     </select>
                     <select name="slot" class="form-control" data-ng-model="item.slot", data-ng-options="slot for slot in slots[item.object]">
                     <input type="number" data-ng-model="item.amount" id="amount" class="form-control" placeholder="Amount" required>
+                    <input type="number" data-ng-model="item.max" id="max" class="form-control" placeholder="Maximum" required>
                 </div>
-                <a ng-click="campaignPapsables.push({object: '', amount: '', slot: null})">+</a>
+                <a ng-click="campaignPapsables.push({object: '', amount: '', slot: null, max: 0})">+</a>
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">
                 </div>

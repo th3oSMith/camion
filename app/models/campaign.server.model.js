@@ -45,6 +45,10 @@ var CampaignSchema = new Schema({
 		},
 		slot: {
 			type: String
+		},
+		max: {
+			type: Number,
+			default: -1
 		}
 	}]
 });
