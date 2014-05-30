@@ -37,6 +37,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
         var minutes, hours, days, weeks, output;
 
+        if (seconds <0 )
+            return 'PAPS fini';
+
         output = '';
 
         minutes = Math.floor(seconds/60);
