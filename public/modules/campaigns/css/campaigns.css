@@ -1,5 +1,7 @@
 .datetimepicker table {
     border-radius: 6px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ffffff;
+    border: 1px solid #ffffff rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
