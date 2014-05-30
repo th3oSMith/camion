@@ -5,16 +5,12 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
     function($scope, $stateParams, $location, Authentication, Campaigns, Papsables) {
         $scope.authentication = Authentication;
         $scope.hideCalendar = true;
+        $scope.slots = {};
 
 
         // Create new Campaign
         $scope.create = function() {
             // Create new Campaign object
-            
-            // Mise en forme des papsables
-            var x = 0;
-            for (x=0; x<this.campaignPapsables.length; x++)
-                this.campaignPapsables[x].object = this.campaignPapsables[x].object._id;
             
             var campaign = new Campaigns({
                 name: this.name,
@@ -79,9 +75,13 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
         $scope.findPapsables = function(){
             $scope.papsables = Papsables.query();
             $scope.campaignPapsables = [];
+
+            $scope.papsables.$promise.then(function(){
+
+                $scope.papsables.forEach(function(el){
+                    $scope.slots[el._id] = el.slots;
+                });
+            });
         };
-
-
-
     }
 ]);
