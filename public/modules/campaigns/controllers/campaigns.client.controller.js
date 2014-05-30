@@ -16,13 +16,11 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
             for (x=0; x<this.campaignPapsables.length; x++)
                 this.campaignPapsables[x].object = this.campaignPapsables[x].object._id;
             
-            console.log(this.campaignPapsables);
-
-
             var campaign = new Campaigns({
                 name: this.name,
                 start: this.start,
-                papsables: this.campaignPapsables
+                papsables: this.campaignPapsables,
+                description: this.description
             });
 
             // Redirect after save

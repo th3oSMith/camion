@@ -16,6 +16,12 @@ var CampaignSchema = new Schema({
 		required: 'Please fill Campaign name',
 		trim: true
 	},
+	description: {
+		type: String,
+		default: '',
+		required: 'Entrez une description pour le PAPS',
+		trim: true
+	},
 	created: {
 		type: Date,
 		default: Date.now

@@ -3,11 +3,19 @@
         <h1>Edit Campaign</h1>
     </div>
     <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="update()" novalidate>
         <fieldset>
                 <div class="form-group">
                     <label class="control-label" for="name">Name</label>
                     <div class="controls">
                         <input type="text" data-ng-model="campaign.name" id="name" class="form-control" placeholder="Name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="description">Description</label>
+                    <div class="controls">
+                        <textarea data-ng-model="campaign.description" id="description" class="form-control" placeholder="Description" required>
+                        </textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -21,16 +29,17 @@
                    <select ng name="papsables" class="form-control" data-ng-model="item.object" data-ng-options="papsable as papsable.name for papsable in papsables" id="papsables">
                     <option value="">Choose Papsable</option>
                     </select>
-                    <select name="slot" class="form-control" data-ng-model="item.slot", data-ng-options="slot for slot in item.object.slots">
+                    <select name="slot" class="form-control" data-ng-model="item.slot", data-ng-options="slot for slot in item.object.slots"></select>
                     <input type="number" data-ng-model="item.amount" id="amount" class="form-control" placeholder="Amount" required>
                 </div>
                 <a ng-click="campaignPapsables.push({object: '', amount: '', slot: null})">+</a>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-default">
+                    <input type="submit" value="Update" class="btn btn-default">
                 </div>
                 <div data-ng-show="error" class="text-danger">
                     <strong>{{error}}</strong>
                 </div>
             </fieldset>
+        </form>
     </div>
 </section>
