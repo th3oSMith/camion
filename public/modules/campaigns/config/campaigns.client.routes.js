@@ -5,6 +5,10 @@ angular.module('campaigns').config(['$stateProvider',
 	function($stateProvider) {
 		// Campaigns state routing
 		$stateProvider.
+		state('papsCampaign', {
+			url: '/campaigns/:campaignId/paps',
+			templateUrl: 'modules/campaigns/views/paps-campaign.client.view.html'
+		}).
 		state('listCampaigns', {
 			url: '/campaigns',
 			templateUrl: 'modules/campaigns/views/list-campaigns.client.view.html'

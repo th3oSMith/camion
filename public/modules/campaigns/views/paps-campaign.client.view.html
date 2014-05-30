@@ -1,0 +1,44 @@
+<section data-ng-controller="CampaignsController" data-ng-init="papsOne(1)">
+	<div class="page-header">
+        <h1>{{campaign.name}}</h1>
+    </div>
+
+    <section>
+        <p>{{campaign.description}}</p>
+
+        <p>Début du PAPS dans <b>{{formatDate(countdown)}}</b></p>
+
+        <p>Tu pourras papser :</p>
+
+        <table class="table-condensed table-bordered table">
+            <tr>
+                <th>Nom</th>
+                <th>Proriétés</th>
+            </tr>
+            <tr ng-repeat="papsable in papsables">
+                <td>{{papsable.name}}</td>
+                <td>
+                    <p ng-repeat='item in papsable.properties'><b>{{item.key}}</b> : {{item.value}}</p>
+                </td>
+            </tr>
+        </table>
+
+        <p>Les créneaux papsables sont les suivants :</p>
+
+        <table class="table-condensed table-bordered table">
+            <tr>
+                <th>Nom</th>
+                <th>Créneau</th>
+                <th>Quantité</th>
+                <th>PAPS</th>
+            </tr>
+            <tr ng-repeat="item in campaign.papsables">
+                <td>{{item.object.name}}</td>
+                <td>{{item.slot}}</td>
+                <td>{{item.amount}}</td>
+                <td><a ng-if="countdown <= 0" class="btn btn-default">PAPS</a></td>
+            </tr>
+        </table>
+
+    </section>
+</section>
