@@ -114,6 +114,93 @@ exports.list = function(req, res) {
 };
 
 /**
+ * Paps d'une campagne
+ */
+
+exports.paps = function(req, res) {
+	var campaign = req.campaign;
+	var user = req.user;
+	var papsable = req.query.papsableId || -1;
+
+	if (papsable === -1){
+		res.jsonp({'error': 1});
+		return;
+	}
+
+	// On récupère le bon pasable
+	campaign.papsables.forEach(function(el){
+		if (el._id.toString() === papsable){
+			papsable = el;
+		}
+	});
+
+	if (typeof papsable === 'string')
+		return res.jsonp({error: 1, msg: 'Pas de Papsable correspondant'});
+
+	// On vérifie si le PAPS est en cours
+	var now = (new Date()).getTime();
+	var start = campaign.start.getTime();
+
+	if (start > now)
+		res.jsonp({error: 1, msg: 'Le PAPS n\'est pas en cours'});
+	else {
+
+		// Vérifier s'il reste des places dans ce papsable
+		if (papsable.amount === 0){
+			res.jsonp({error: 1, msg: 'Plus de places disponibles'});
+			return;
+		}
+
+		// Si possible on attribue le paps à l'utilisateur
+		user.populate('papsables');
+
+		var added = false;
+
+		user.papsables.forEach(function (el){
+			if (el._id.toString() === papsable._id.toString() && !added){
+				added = true;
+				if (el.amount < papsable.max || papsable.max === -1 ){
+					el.amount++;
+					papsable.amount--;
+					return res.jsonp({error: 0, msg: 'PAPS réussi'});
+				}else{
+					res.jsonp({error: 1, msg: 'Vous avez déjà le nombre max'});
+					return;
+				}
+			}
+		});
+
+		if (!added && papsable.max > 0){
+			user.papsables.push({
+				object: papsable.object._id,
+				slot: papsable.slot,
+				amount: 1,
+				_id: papsable._id
+			});
+			papsable.amount--;
+			return res.jsonp({error: 0, msg: 'PAPS réussi'});
+		}
+
+		user.save(function(err) {
+			if (err) {
+				return res.send(400, {
+					message: getErrorMessage(err)
+				});
+			}
+		});
+
+		campaign.save(function(err) {
+			if (err) {
+				return res.send(400, {
+					message: getErrorMessage(err)
+				});
+			}
+		});
+		// @TODO Push en websocket le nombre de PAPS restant
+	}
+};
+
+/**
  * Campaign middleware
  */
 exports.campaignByID = function(req, res, next, id) {

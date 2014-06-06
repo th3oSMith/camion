@@ -49,6 +49,9 @@ var CampaignSchema = new Schema({
 		max: {
 			type: Number,
 			default: -1
+		},
+		id: {
+			type: Number
 		}
 	}]
 });
