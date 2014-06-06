@@ -13,10 +13,8 @@ module.exports = function(app) {
 	app.route('/campaigns/:campaignId')
 		.get(campaigns.read)
 		.put(users.requiresLogin, campaigns.hasAuthorization, campaigns.update)
-	    .delete(users.requiresLogin, campaigns.hasAuthorization, campaigns.delete);
-
-	app.route('/campaigns/:campaignId/paps')
-		.get(users.requiresLogin, campaigns.paps);
+	    .delete(users.requiresLogin, campaigns.hasAuthorization, campaigns.delete)
+	    .post(users.requiresLogin, campaigns.paps);
 
 	// Finish by binding the Campaign middleware
 	app.param('campaignId', campaigns.campaignByID);

@@ -36,9 +36,11 @@
                 <td>{{item.object.name}}</td>
                 <td>{{item.slot}}</td>
                 <td>{{item.amount}}</td>
-                <td><a ng-if="countdown <= 0" class="btn btn-default">PAPS</a></td>
+                <td><a ng-if="countdown <= 0" ng-click="paps(item._id)" class="btn btn-default">PAPS</a></td>
             </tr>
         </table>
-
+        <div data-ng-show="error" class="text-danger">
+            <strong>{{error}}</strong>
+        </div>
     </section>
 </section>

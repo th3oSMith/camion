@@ -162,7 +162,7 @@ exports.paps = function(req, res) {
 				if (el.amount < papsable.max || papsable.max === -1 ){
 					el.amount++;
 					papsable.amount--;
-					return res.jsonp({error: 0, msg: 'PAPS réussi'});
+					return res.jsonp({error: 0, msg: 'PAPS réussi', campaign: campaign});
 				}else{
 					res.jsonp({error: 1, msg: 'Vous avez déjà le nombre max'});
 					return;
@@ -178,7 +178,7 @@ exports.paps = function(req, res) {
 				_id: papsable._id
 			});
 			papsable.amount--;
-			return res.jsonp({error: 0, msg: 'PAPS réussi'});
+			return res.jsonp({error: 0, msg: 'PAPS réussi', campaign: campaign});
 		}
 
 		user.save(function(err) {

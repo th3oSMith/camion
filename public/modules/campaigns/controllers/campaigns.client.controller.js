@@ -116,6 +116,15 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
             });
         };
 
+        $scope.paps = function (id){
+            var test = Campaigns.paps({_id: $scope.campaign._id, papsableId: id});
+            test.$promise.then(function(data){
+                $scope.error = data.msg;
+                if (data.campaign)
+                    $scope.campaign = data.campaign;
+            });
+        };
+
         $scope.n = function (number){
             return (number <= 9 ? '0' : '') + number;
         };

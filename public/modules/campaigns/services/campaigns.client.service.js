@@ -7,6 +7,10 @@ angular.module('campaigns').factory('Campaigns', ['$resource', function($resourc
     }, {
         update: {
             method: 'PUT'
+        },
+        paps: {
+            method: 'POST',
+            params: {papsableId: '@papsableId'}
         }
     });
 }]);
