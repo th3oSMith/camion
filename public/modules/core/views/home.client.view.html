@@ -1,9 +1,16 @@
 <section data-ng-controller="HomeController" data-ng-init="findFutureCampaigns()">
-    <h1 class="text-center">PAPS</h1>
+    <div class="page-header">
+        <h1>PAPS ?!</h1>
+    </div>
     <section>
-        <p>Les PAPS d’ores et déjà planifiés sont les suivants :</p>
-        <ul>
-            <li ng-repeat="campaign in campaigns">{{campaign.name}} dans {{formatDate(countdowns[campaign._id])}}</li>
-        </ul>
+        <p class="lead">
+            Bienvenue sur le site du PAPS v2.0, le site qui va sauver ta touche F5.
+        </p>
+        <p>
+            Tu souhaites organiser un PAPS sans voir ta boîte mail exploser ? Tu veux papser plus vite que ton ombre sans devoir ouvrir une vingtaine d'onglets ? Ce site est fait pour toi.
+        </p>
+        <p>
+            Avec PAPS v2.0, plus besoin de marteler la touche F5, la page se met automatiquement à jour lorsque le PAPS commence. Si tu aimes papser dans les règles de l'art ce site est fait pour toi !
+        </p>
     </section>
 </section>
