@@ -25,6 +25,20 @@
                         <datetimepicker data-on-set-time="onTimeSet" ng-hide="hideCalendar" data-ng-model="campaign.start"></datetimepicker>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label" for="end">End</label>
+                    <div class="controls">
+                        <input autocomplete="off" type="date" data-ng-model="campaign.end" id="end" class="form-control" placeholder="End" ng-click="hideCalendar =  false " required>
+                        <datetimepicker data-on-set-time="onTimeSet" ng-hide="hideCalendar" data-ng-model="campaign.end"></datetimepicker>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                          <input type="checkbox" ng-model="campaign.secret" > Privé
+                        </label>
+                    </div>
+                </div>
                 <div ng-repeat="item in campaign.papsables" class="form-group">
                    <select ng name="papsables" class="form-control" data-ng-model="item.object._id" data-ng-options="papsable._id as papsable.name for papsable in papsables" id="papsables">
                     <option value="">Choose Papsable</option>

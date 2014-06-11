@@ -6,7 +6,7 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
         $scope.authentication = Authentication;
         $scope.hideCalendar = true;
         $scope.slots = {};
-        $scope.countdown = 0;
+        $scope.countdowns = {};
         $scope.updateCountdown = null;
         $scope.papsables = {};
 
@@ -81,11 +81,14 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
                 Time.getTime().then(function (result){
                     var time = result.data.time;
                     var start = (new Date($scope.campaign.start)).getTime();
+                    var end = (new Date($scope.campaign.end)).getTime();
 
-                    $scope.countdown  = Math.floor((start - time)/1000);
+                    $scope.countdowns.start  = Math.floor((start - time)/1000);
+                    $scope.countdowns.end = Math.floor((end - time)/1000);
 
                     $scope.updateCountdown = $interval(function(){
-                            $scope.countdown--;
+                            $scope.countdowns.start--;
+                            $scope.countdowns.end--;
                     }, 1000);
 
                     $scope.campaign.papsables.forEach(function(el){
@@ -123,6 +126,11 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
                 if (data.campaign)
                     $scope.campaign = data.campaign;
             });
+        };
+
+        $scope.papsOpen = function (){
+            var hodie = new Date();
+            return $scope.countdown <= 0 && (!$scope.campaign.end || hodie.getTime() < $scope.campaign.end.getTime());
         };
 
         $scope.n = function (number){

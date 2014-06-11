@@ -6,7 +6,8 @@
     <section>
         <p>{{campaign.description}}</p>
 
-        <p>Début du PAPS dans <b>{{formatDate(countdown)}}</b></p>
+        <p ng-if="countdowns.start>0" >Début du PAPS dans <b>{{formatDate(countdowns.start)}}</b></p>
+        <p ng-if="countdowns.start<=0">Fin du PAPS dans <b>{{formatDate(countdowns.end)}}</b></p>
 
         <p>Tu pourras papser :</p>
 
@@ -36,7 +37,7 @@
                 <td>{{item.object.name}}</td>
                 <td>{{item.slot}}</td>
                 <td>{{item.amount}}</td>
-                <td><a ng-if="countdown <= 0" ng-click="paps(item._id)" class="btn btn-default">PAPS</a></td>
+                <td><a ng-if="papsOpen()" ng-click="paps(item._id)" class="btn btn-default">PAPS</a></td>
             </tr>
         </table>
         <div data-ng-show="error" class="text-danger">

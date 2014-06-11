@@ -34,6 +34,14 @@ var CampaignSchema = new Schema({
 		type: Date,
 		required: 'Please set a start date for the campaign'
 	},
+	secret: {
+		type: Boolean,
+		default: true
+	},
+	end: {
+		type: Date,
+		default: null
+	},
 	papsables: [{
 		object:{
 			type: Schema.ObjectId,
