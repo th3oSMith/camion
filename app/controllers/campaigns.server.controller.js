@@ -175,10 +175,11 @@ exports.paps = function(req, res) {
 				object: papsable.object._id,
 				slot: papsable.slot,
 				amount: 1,
-				_id: papsable._id
+				_id: papsable._id,
+				campaign: campaign._id
 			});
 			papsable.amount--;
-			return res.jsonp({error: 0, msg: 'PAPS réussi', campaign: campaign});
+			res.jsonp({error: 0, msg: 'PAPS réussi', campaign: campaign});
 		}
 
 		user.save(function(err) {
