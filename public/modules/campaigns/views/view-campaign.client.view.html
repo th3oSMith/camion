@@ -7,6 +7,11 @@
 		<p><b>PAPS Secret</b> : {{campaign.secret ? 'Oui' : 'Non'}}</p>
 		<p><b>Heure du PAPS</b> : {{campaign.start}}</p>
 		<p><b>Fin du PAPS</b> : {{campaign.end}}</p>
+		<br/>
+
+		<p><b>Page du PAPS</b> : <a ng-href="#!/campaigns/{{campaign._id}}/paps">Ici</a></p>
+
+		<br/>
 		<h4>Objets à papser</h4>
 		<table class="table-condensed table-bordered table">
 			<tr>
