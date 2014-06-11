@@ -7,7 +7,7 @@
         <p>{{campaign.description}}</p>
 
         <p ng-if="countdowns.start>0" >Début du PAPS dans <b>{{formatDate(countdowns.start)}}</b></p>
-        <p ng-if="countdowns.start<=0">Fin du PAPS dans <b>{{formatDate(countdowns.end)}}</b></p>
+        <p ng-if="countdowns.start<=0 && campaign.end">Fin du PAPS dans <b>{{formatDate(countdowns.end)}}</b></p>
 
         <p>Tu pourras papser :</p>
 

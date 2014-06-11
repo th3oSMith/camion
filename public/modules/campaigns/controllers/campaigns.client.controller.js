@@ -129,8 +129,7 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
         };
 
         $scope.papsOpen = function (){
-            var hodie = new Date();
-            return $scope.countdown <= 0 && (!$scope.campaign.end || hodie.getTime() < $scope.campaign.end.getTime());
+            return $scope.countdowns.start <= 0 && (!$scope.campaign.end ||$scope.countdowns.end >=0);
         };
 
         $scope.n = function (number){
