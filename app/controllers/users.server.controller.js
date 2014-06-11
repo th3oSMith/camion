@@ -202,6 +202,21 @@ exports.me = function(req, res) {
 };
 
 /**
+ * Send User Paps
+ */
+exports.mypaps = function(req, res) {
+	User.findOne({
+		_id: req.user._id
+	}).populate('papsables.object').populate('papsables.campaign').exec(function(err, user) {
+		if (err)
+			return res.send(401, {
+			message: 'Impossible de charger les PAPS'
+		});
+		res.jsonp(user.papsables || null);
+	});
+};
+
+/**
  * OAuth callback
  */
 exports.oauthCallback = function(strategy) {

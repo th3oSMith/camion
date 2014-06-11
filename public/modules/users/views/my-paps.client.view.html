@@ -1,0 +1,31 @@
+<section class="row" data-ng-controller="MypapsController">
+
+    <div class="page-header">
+        <h1>Mes PAPS</h1>
+    </div>
+
+    <div ng-repeat="(category, objects) in papsables">
+        <h3>
+            {{campaigns[category].name}}<br/>
+            <small>{{campaigns[category].description}}</small>
+        </h3>
+
+        <table class="table-condensed table-bordered table">
+            <tr>
+                <th>Objet</th>
+                <th>Créneau</th>
+                <th>Quantité</th>
+            </tr>
+            <tr ng-repeat="object in objects">
+                <td>{{object.object.name}}</td>
+                <td>{{object.slot}}</td>
+                <td>{{object.amount}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div data-ng-show="error" class="text-center text-danger">
+        <strong>{{error}}</strong>
+    </div>
+
+</section>

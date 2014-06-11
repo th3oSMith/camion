@@ -93,6 +93,10 @@ var UserSchema = new Schema({
 		amount: {
 			type: Number
 		},
+		campaign: {
+			type: Schema.ObjectId,
+			ref: 'Campaign'
+		}
 	}]
 });
 

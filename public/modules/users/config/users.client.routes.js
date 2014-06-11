@@ -24,6 +24,10 @@ angular.module('users').config(['$stateProvider',
 		state('signin', {
 			url: '/signin',
 			templateUrl: 'modules/users/views/signin.client.view.html'
+		}).
+		state('mypaps', {
+			url: '/mypaps',
+			templateUrl: 'modules/users/views/my-paps.client.view.html'
 		});
 	}
 ]);
