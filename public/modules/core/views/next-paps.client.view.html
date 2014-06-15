@@ -6,7 +6,7 @@
     <section>
          <p>Les PAPS d’ores et déjà planifiés sont les suivants :</p>
          <ul>
-             <li ng-repeat="campaign in campaigns">{{campaign.name}} dans {{formatDate(countdowns[campaign._id])}}</li>
+             <li ng-repeat="campaign in campaigns"><a ng-href="#!/campaigns/{{campaign._id}}/paps" >{{campaign.name}}</a> dans {{formatDate(countdowns[campaign._id])}}</li>
          </ul>
      </section>
 </section>
