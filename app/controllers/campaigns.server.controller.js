@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	Campaign = mongoose.model('Campaign'),
+	Papsed = mongoose.model('Papsed'),
 	_ = require('lodash');
 
 /**
@@ -142,61 +143,141 @@ exports.paps = function(req, res) {
 	var start = campaign.start.getTime();
 
 	if (start > now)
-		res.jsonp({error: 1, msg: 'Le PAPS n\'est pas en cours'});
+		return res.send(400, {
+			message: 'PAPS pas encore lancé'
+		});
 	else {
 
 		// Vérifier s'il reste des places dans ce papsable
 		if (papsable.amount === 0){
-			res.jsonp({error: 1, msg: 'Plus de places disponibles'});
-			return;
+			return res.send(400, {
+				message: 'PAPS complet'
+			});
 		}
 
 		// Si possible on attribue le paps à l'utilisateur
-		user.populate('papsables');
+		// user.populate('papsables');
 
 		var added = false;
 
-		user.papsables.forEach(function (el){
-			if (el._id.toString() === papsable._id.toString() && !added){
-				added = true;
-				if (el.amount < papsable.max || papsable.max === -1 ){
-					el.amount++;
-					papsable.amount--;
-					return res.jsonp({error: 0, msg: 'PAPS réussi', campaign: campaign});
-				}else{
-					res.jsonp({error: 1, msg: 'Vous avez déjà le nombre max'});
-					return;
+		Papsed
+			.find({campaign: campaign._id})
+			.where('user').equals(req.user._id)
+			.exec(function (err, papseds) {
+				if (err)
+					return res.send(400, {
+						message: getErrorMessage(err)
+					});
+
+				// On vérifie que l'utilisateur ne dépasse pas le nmobre de PAPS autorisé
+
+				// PAPS par campagne
+				if (papseds.length >= campaign.max && campaign.max !== -1){
+					return res.send(400, {
+							message: 'Nombre max de Paps atteint pour cette campagne'
+						});
 				}
-			}
-		});
 
-		if (!added && papsable.max > 0){
-			user.papsables.push({
-				object: papsable.object._id,
-				slot: papsable.slot,
-				amount: 1,
-				_id: papsable._id,
-				campaign: campaign._id
+				// On recherche pour notre papsable
+
+				Papsed.findOne({campaign: campaign._id})
+					.where('papsable').equals(papsable._id)
+					.where('user').equals(req.user._id)
+					.exec(function (err, papsed){
+
+					if (err)
+						return err;
+
+					if (papsed){ // L'utilisateur a déjà papsé se papsable
+						
+						if (papsed.amount >= papsable.max && papsable.max !== -1){
+							return res.send(400, {
+									message: 'Nombre max de Paps atteint'
+								});
+						}else{
+							papsed.amount++;
+							papsable.amount--;
+
+							papsed.save(function(err) {
+								if (err) {
+									return res.send(400, {
+										message: getErrorMessage(err)
+									});
+								}
+							});
+						}
+					}else{ // L'utilisateur n'a encore pas papsé ce papsable
+
+						var newPapsed = new Papsed({
+							papsable: papsable._id,
+							object: papsable.object._id,
+							slot: papsable.slot,
+							campaign: campaign._id,
+							amount: 1,
+							user:req.user._id
+						});
+
+						papsable.amount--;
+
+						newPapsed.save(function(err, newObject) {
+							if (err) {
+								return res.send(400, {
+									message: getErrorMessage(err)
+								});
+							}
+
+							user.papsables.push(newObject._id);
+
+							user.save(function (err){
+								if (err)
+									return res.send(400, {
+										message: getErrorMessage(err)
+									});
+							});
+						});
+					}
+
+					campaign.save(function(err) {
+						if (err) {
+							return res.send(400, {
+								message: getErrorMessage(err)
+							});
+						}
+					});
+
+					return res.send({message: 'PAPS Réussi', campaign: campaign});
+
+				});
+
 			});
-			papsable.amount--;
-			res.jsonp({error: 0, msg: 'PAPS réussi', campaign: campaign});
-		}
 
-		user.save(function(err) {
-			if (err) {
-				return res.send(400, {
-					message: getErrorMessage(err)
-				});
-			}
-		});
 
-		campaign.save(function(err) {
-			if (err) {
-				return res.send(400, {
-					message: getErrorMessage(err)
-				});
-			}
-		});
+
+		// user.papsables.forEach(function (el){
+		// 	if (el._id.toString() === papsable._id.toString() && !added){
+		// 		added = true;
+		// 		if (el.amount < papsable.max || papsable.max === -1 ){
+		// 			el.amount++;
+		// 			papsable.amount--;
+		// 			return res.jsonp({error: 0, msg: 'PAPS réussi', campaign: campaign});
+		// 		}else{
+		// 			res.jsonp({error: 1, msg: 'Vous avez déjà le nombre max'});
+		// 			return;
+		// 		}
+		// 	}
+		// });
+
+		// if (!added && papsable.max > 0){
+		// 	user.papsables.push({
+		// 		object: papsable.object._id,
+		// 		slot: papsable.slot,
+		// 		amount: 1,
+		// 		_id: papsable._id,
+		// 		campaign: campaign._id
+		// 	});
+		// 	papsable.amount--;
+		// 	res.jsonp({error: 0, msg: 'PAPS réussi', campaign: campaign});
+		// }
 		// @TODO Push en websocket le nombre de PAPS restant
 	}
 };

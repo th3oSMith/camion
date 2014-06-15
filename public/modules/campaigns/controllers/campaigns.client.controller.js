@@ -17,6 +17,7 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
             var campaign = new Campaigns({
                 name: this.name,
                 start: this.start,
+                max: this.max,
                 papsables: this.campaignPapsables,
                 description: this.description
             });
@@ -122,9 +123,11 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
         $scope.paps = function (id){
             var test = Campaigns.paps({_id: $scope.campaign._id, papsableId: id});
             test.$promise.then(function(data){
-                $scope.error = data.msg;
+                $scope.error = data.message;
                 if (data.campaign)
                     $scope.campaign = data.campaign;
+            }, function(data){
+               $scope.error = data.data.message;
             });
         };
 

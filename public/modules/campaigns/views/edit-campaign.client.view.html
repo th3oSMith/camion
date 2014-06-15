@@ -19,6 +19,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="control-label" for="max">Max</label>
+                    <div class="controls">
+                        <input type="number" data-ng-model="campaign.max" id="max" class="form-control" placeholder="Max" required>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label" for="start">Start</label>
                     <div class="controls">
                         <input autocomplete="off" type="date" data-ng-model="campaign.start" id="start" class="form-control" placeholder="Start" ng-click="hideCalendar =  false " required>

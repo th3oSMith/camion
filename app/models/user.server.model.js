@@ -83,20 +83,8 @@ var UserSchema = new Schema({
 		default: Date.now
 	},
 	papsables: [{
-		object:{
-			type: Schema.ObjectId,
-			ref: 'Papsable'
-		},
-		slot: {
-			type: String
-		},
-		amount: {
-			type: Number
-		},
-		campaign: {
-			type: Schema.ObjectId,
-			ref: 'Campaign'
-		}
+		type: Schema.ObjectId,
+		ref: 'Papsed'
 	}]
 });
 
