@@ -71,6 +71,21 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
             });
         };
 
+        // Find existing Campaign
+        $scope.findFullOne = function() {
+            $scope.campaign = Campaigns.papsed({
+                campaignId: $stateParams.campaignId
+            });
+
+            $scope.campaign.$promise.then(function (data){
+
+                $scope.campaign = data.campaign;
+                $scope.papseds = data.papseds;
+            }, function (data){
+                console.log(data.data.message);
+            });
+        };
+
         // Find PAPS and init countdown
         $scope.papsOne = function (){
             $scope.campaign = Campaigns.get({

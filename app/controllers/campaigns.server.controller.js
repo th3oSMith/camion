@@ -54,7 +54,31 @@ exports.create = function(req, res) {
  * Show the current Campaign
  */
 exports.read = function(req, res) {
-	res.jsonp(req.campaign);
+
+	if (req.query.papsed) {
+		var output = {};
+		output.campaign = req.campaign;
+
+		Papsed
+		.find({campaign: req.campaign._id})
+		.populate('object')
+		.populate('user', 'displayName')
+		.exec(function (err, papseds){
+
+			if (err)
+				return res.send(400, {
+					message: getErrorMessage(err)
+				});
+
+				output.papseds = papseds;
+
+				res.jsonp(output);
+
+		});
+	}
+	else{
+		res.jsonp(req.campaign);
+	}
 };
 
 /**

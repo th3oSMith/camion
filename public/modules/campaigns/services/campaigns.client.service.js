@@ -11,6 +11,10 @@ angular.module('campaigns').factory('Campaigns', ['$resource', function($resourc
         paps: {
             method: 'POST',
             params: {papsableId: '@papsableId'}
+        },
+        papsed: {
+            method: 'GET',
+            params: {papsed: true}
         }
     });
 }]);
