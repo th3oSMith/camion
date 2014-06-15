@@ -122,7 +122,7 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
 
-	var q = Campaign.find().sort('-created').populate('user', 'displayName');
+	var q = Campaign.find().where('user').equals(req.user._id).sort('-created').populate('user', 'displayName');
 
 	if (Object.keys(req.query).length > 0)
 		q.where('start').gte(new Date());
