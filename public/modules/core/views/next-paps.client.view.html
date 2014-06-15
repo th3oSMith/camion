@@ -1,0 +1,12 @@
+<section data-ng-controller="HomeController" ng-init="findFutureCampaigns()">
+	<div class="page-header">
+        <h1>Prochains PAPS</h1>
+    </div>
+
+    <section>
+         <p>Les PAPS d’ores et déjà planifiés sont les suivants :</p>
+         <ul>
+             <li ng-repeat="campaign in campaigns">{{campaign.name}} dans {{formatDate(countdowns[campaign._id])}}</li>
+         </ul>
+     </section>
+</section>
