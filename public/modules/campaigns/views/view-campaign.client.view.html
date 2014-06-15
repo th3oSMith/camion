@@ -1,9 +1,12 @@
 <section data-ng-controller="CampaignsController" data-ng-init="findOne()">
 	<div class="page-header">
-		<h1>{{campaign.name}}</h1>
+		<h1>
+			{{campaign.name}}
+			<br/>
+			<small>{{campaign.description}}</small>
+			</h1>
 	</div>
 	<section>
-		<p><b>Description</b> : {{campaign.description}}</p>
 		<p><b>Max</b> : {{campaign.max}}</p>
 		<p><b>PAPS Secret</b> : {{campaign.secret ? 'Oui' : 'Non'}}</p>
 		<p><b>Heure du PAPS</b> : {{campaign.start}}</p>

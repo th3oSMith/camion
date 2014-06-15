@@ -20,24 +20,14 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="max">Max</label>
-                    <div class="controls">
-                        <input type="number" data-ng-model="campaign.max" id="max" class="form-control" placeholder="Max" required>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input ng-model="enableMax" type="checkbox">
+                        </span>
+                        <input ng-disabled="!enableMax" type="number" data-ng-model="campaign.max" id="max" class="form-control" placeholder="Max" required>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="start">Start</label>
-                    <div class="controls">
-                        <input autocomplete="off" type="date" data-ng-model="campaign.start" id="start" class="form-control" placeholder="Start" ng-click="hideCalendar =  false " required>
-                        <datetimepicker data-on-set-time="onTimeSet" ng-hide="hideCalendar" data-ng-model="campaign.start"></datetimepicker>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="end">End</label>
-                    <div class="controls">
-                        <input autocomplete="off" type="date" data-ng-model="campaign.end" id="end" class="form-control" placeholder="End" ng-click="hideCalendar =  false " required>
-                        <datetimepicker data-on-set-time="onTimeSet" ng-hide="hideCalendar" data-ng-model="campaign.end"></datetimepicker>
-                    </div>
-                </div>
+
                 <div class="form-group">
                     <div class="checkbox">
                         <label>
@@ -45,15 +35,84 @@
                         </label>
                     </div>
                 </div>
-                <div ng-repeat="item in campaign.papsables" class="form-group">
-                   <select ng name="papsables" class="form-control" data-ng-model="item.object._id" data-ng-options="papsable._id as papsable.name for papsable in papsables" id="papsables">
-                    <option value="">Choose Papsable</option>
-                    </select>
-                    <select name="slot" class="form-control" data-ng-model="item.slot", data-ng-options="slot for slot in slots[item.object._id]"></select>
-                    <input type="number" data-ng-model="item.amount" id="amount" class="form-control" placeholder="Amount" required>
-                    <input type="number" data-ng-model="item.max" id="max" class="form-control" placeholder="Maximum" required>
+
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <label class="control-label" for="start">Début</label>
+                            <div class="dropdown">
+                              <a class="dropdown-toggle" id="start" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                <div class="input-group"><input type="text" class="form-control" data-ng-model="campaign.start"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                              </a>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <datetimepicker ng-hide="dropdownStatus.start" data-on-set-time="onStartSet" data-ng-model="campaign.start" data-datetimepicker-config="{}"/></datetimepicker>
+                              </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <label class="control-label" for="end">Fin</label>
+                            <div class="dropdown">
+                              <a class="dropdown-toggle" id="end" role="button" data-toggle="dropdown" data-target="#" href="#">
+                                <div class="input-group"><input type="text" class="form-control" data-ng-model="campaign.end"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                              </a>
+                              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <datetimepicker ng-hide="dropdownStatus.start" data-on-set-time="onEndSet" data-ng-model="campaign.end" data-datetimepicker-config="{}"/></datetimepicker>
+                              </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <a ng-click="campaignPapsables.push({object: '', amount: '', slot: null, max: 0})">+</a>
+                <ul class="list-group form-group">
+                    <li class="list-group-item list-group-item-info">Objets</li>
+                    <li  ng-repeat="item in campaign.papsables" class="list-group-item">
+                        <div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="control-label" for="papsables">Objet</label>
+                                    <select ng name="papsables" class="form-control" data-ng-model="item.object._id" data-ng-options="papsable._id as papsable.name for papsable in papsables" id="papsables">
+                                    <option value="">Choose Papsable</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="control-label" for="papsables">Créneau</label>
+                                    <select name="slot" class="form-control" data-ng-model="item.slot", data-ng-options="slot for slot in slots[item.object._id]"></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="control-label" for="papsables">Quantité</label>
+                                    <input type="number" data-ng-model="item.amount" id="amount" class="form-control" placeholder="Amount" required>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="control-label" for="papsables">Maximum</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input ng-model="enableMaxObject[$index]" type="checkbox">
+                                        </span>
+                                        <input ng-disabled="!enableMaxObject[$index]" type="number" data-ng-model="item.max" id="max" class="form-control" placeholder="Maximum" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <a ng-click="campaign.papsables.splice($index,1)" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <a class="btn btn-primary" ng-click="campaign.papsables.push({object: '', amount: '', slot: null,   max: 0})">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+                        
+                    </li>
+                </ul>
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
                 </div>

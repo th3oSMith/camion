@@ -9,6 +9,8 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
         $scope.countdowns = {};
         $scope.updateCountdown = null;
         $scope.papsables = {};
+        $scope.enableMax = false;
+        $scope.enableMaxObject = {};
 
         // Create new Campaign
         $scope.create = function() {
@@ -21,6 +23,10 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
                 papsables: this.campaignPapsables,
                 description: this.description
             });
+
+            $scope.reportMax(campaign);
+
+            console.log(campaign);
 
             // Redirect after save
             campaign.$save(function(response) {
@@ -52,11 +58,25 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
         $scope.update = function() {
             var campaign = $scope.campaign;
 
+            $scope.reportMax(campaign);
+            console.log(campaign);
+
             campaign.$update(function() {
                 $location.path('campaigns/' + campaign._id);
             }, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
+        };
+
+        $scope.reportMax = function(campaign){
+            if (!$scope.enableMax){
+                campaign.max = -1;
+            }
+            campaign.papsables.forEach(function (el, index){
+                if (!$scope.enableMaxObject[index]){
+                    el.max = -1;
+                }
+            });
         };
 
         // Find a list of Campaigns
@@ -69,6 +89,24 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
             $scope.campaign = Campaigns.get({
                 campaignId: $stateParams.campaignId
             });
+
+            $scope.campaign.$promise.then(function(){
+                $scope.enableMax = ($scope.campaign.max !== -1);
+                if (!$scope.enableMax){
+                    $scope.campaign.max = '';
+                }
+
+                $scope.campaign.papsables.forEach(function(el, index){
+
+                    $scope.enableMaxObject[index] = (el.max !== -1);
+                    if (!$scope.enableMaxObject[index]){
+                        el.max = '';
+                    }
+                });
+
+            });
+
+
         };
 
         // Find existing Campaign
@@ -119,8 +157,12 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
             });
         };
 
-        $scope.onTimeSet = function(){
-            $scope.hideCalendar = true;
+        $scope.onStartSet = function(){
+            document.getElementById('start').click();
+        };
+
+        $scope.onEndSet = function(){
+            document.getElementById('end').click();
         };
 
         $scope.findPapsables = function(){
