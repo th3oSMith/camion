@@ -3,22 +3,37 @@
 		<h1>{{papsable.name}}</h1>
 	</div>
 	<section>
-		<h4>Propriétés</h4>
-		<p ng-repeat='item in papsable.properties'><b>{{item.key}}</b> : {{item.value}}</p>
-		<h4>Créneaux</h4>
-		<ul>
-			<li ng-repeat="slot in papsable.slots">{{slot}}</li>
-		</ul>
+
+		<div class="row">
+			<div class="col-lg-6">
+				<ul class="list-group">
+					<li class="list-group-item list-group-item-info"><b>Propriétés</b></li>
+					<li class="list-group-item" ng-repeat='property in papsable.properties'>
+						<p><b>{{property.key}}</b> : {{property.value}}</p>
+					</li>
+				</ul>
+			</div>
+
+			<div class="col-lg-4">
+				<ul class="list-group">
+					<li class="list-group-item list-group-item-info"><b>Créneaux</b></li>
+					<li class="list-group-item" ng-repeat='slot in papsable.slots'>
+						<p>{{slot}}</p>
+					</li>
+				</ul>
+
+			</div>
+			<div class="col-lg-2" data-ng-show="authentication.user._id == papsable.user._id">
+				<a class="btn btn-primary" href="/#!/papsables/{{papsable._id}}/edit">
+					<i class="glyphicon glyphicon-edit"></i>
+				</a>
+				<a class="btn btn-primary" data-ng-click="remove();">
+					<i class="glyphicon glyphicon-trash"></i>
+				</a>
+			</div>
+		</div>
 	</section>
-	<div class="pull-right" data-ng-show="authentication.user._id == papsable.user._id">
-		<a class="btn btn-primary" href="/#!/papsables/{{papsable._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
 	<small>
-		<em class="text-muted">Posted on {{papsable.created | date:'mediumDate'}} by {{papsable.user.displayName}}</em>
+		<em class="text-muted">Crée le {{papsable.created | date:'mediumDate'}} par {{papsable.user.displayName}}</em>
 	</small>
 </section>

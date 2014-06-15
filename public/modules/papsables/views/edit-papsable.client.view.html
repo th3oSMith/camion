@@ -1,29 +1,57 @@
 <section data-ng-controller="PapsablesController" data-ng-init="findOne()">
     <div class="page-header">
-        <h1>Edit Papsable</h1>
+        <h1>Modifier l'objet</h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
+                    <label class="control-label" for="name">Nom</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="papsable.name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="text" data-ng-model="papsable.name" id="name" class="form-control" placeholder="Nom" required>
                     </div>
                 </div>
-                <div>
-                    <p>Properties :</p>
-                    <ul>
-                        <li ng-repeat='item in papsable.properties'><input ng-model="item.key" type="text"> : <input type="text" ng-model="item.value" > - <a ng-click="papsable.properties.splice($index,1)">Supprimer</a></li></li>
+                <div class="form-group">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-info"><b>Propriétés</b></li>
+                        <li class="list-group-item" ng-repeat='item in papsable.properties'>
+                            <div class = "row">
+                                <div class="col-lg-3">
+                                    <input placeholder="Attribut" class="form-control" ng-model="item.key" type="text">
+                                </div>
+                                <div class="col-lg-3">
+                                    <input placeholder = "Valeur" type="text" class="form-control" ng-model="item.value" >
+                                </div>
+                                <div class="col-lg-3">
+                                    <a class="btn btn-primary" ng-click="papsable.properties.splice($index,1)"><span class="glyphicon glyphicon-minus"></span></a>
+                                </div>
+                            
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="btn btn-primary" ng-click="papsable.properties.push({key: '', value: ''})">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </li>
                     </ul>
-                <a ng-click="papsable.properties.push({key: '', value: ''})">+</a>
                 </div>
-                <div>
-                    <p>Crénaux :</p>
-                    <ul>
-                        <li ng-repeat='item in papsable.slots track by $index'><input ng-model="papsable.slots[$index]" type="text"> - <a ng-click="papsable.slots.splice($index,1)">Supprimer</a></li></li>
+                <div class="form-group">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-info"><b>Créneaux</b></li>
+                        <li class="list-group-item" ng-repeat='item in papsable.slots track by $index'>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <input placeholder="Créneau" class="form-control" ng-model="papsable.slots[$index]" type="text">
+                                </div>
+                                <div class="col-lg-3">
+                                    <a class="btn btn-primary" ng-click="papsable.slots.splice($index,1)"><span class="glyphicon glyphicon-minus"></span></a>
+                                </div>
+                        </li>
+                        <li class="list-group-item">
+                             <a class="btn btn-primary" ng-click="papsable.slots.push('')"><span class="glyphicon glyphicon-plus"></span></a>
+                        </li>
                     </ul>
-                <a ng-click="papsable.slots.push('')">+</a>
+               
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
