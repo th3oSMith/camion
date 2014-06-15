@@ -96,7 +96,7 @@ exports.delete = function(req, res) {
  * List of Papsables
  */
 exports.list = function(req, res) {
-	Papsable.find().sort('-created').populate('user', 'displayName').exec(function(err, papsables) {
+	Papsable.find().sort('-created').where('user').equals(req.user._id).populate('user', 'displayName').exec(function(err, papsables) {
 		if (err) {
 			return res.send(400, {
 				message: getErrorMessage(err)
