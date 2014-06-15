@@ -81,11 +81,7 @@ var UserSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
-	},
-	papsables: [{
-		type: Schema.ObjectId,
-		ref: 'Papsed'
-	}]
+	}
 });
 
 /**

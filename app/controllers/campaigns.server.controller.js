@@ -160,6 +160,7 @@ exports.paps = function(req, res) {
 
 		var added = false;
 
+
 		Papsed
 			.find({campaign: campaign._id})
 			.where('user').equals(req.user._id)
@@ -225,15 +226,6 @@ exports.paps = function(req, res) {
 									message: getErrorMessage(err)
 								});
 							}
-
-							user.papsables.push(newObject._id);
-
-							user.save(function (err){
-								if (err)
-									return res.send(400, {
-										message: getErrorMessage(err)
-									});
-							});
 						});
 					}
 
