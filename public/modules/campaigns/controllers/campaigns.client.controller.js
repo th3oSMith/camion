@@ -21,7 +21,8 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
                 start: this.start,
                 max: this.max,
                 papsables: this.campaignPapsables,
-                description: this.description
+                description: this.description,
+                secret: this.secret || false
             });
 
             $scope.reportMax(campaign);
