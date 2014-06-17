@@ -21,7 +21,14 @@ var app = require('./config/express')(db);
 require('./config/passport')();
 
 // Start the app by listening on <port>
-app.listen(config.port);
+var server = app.listen(config.port);
+
+// Start the WebSocket Server
+var io = require('socket.io').listen(server);
+
+// Init the Socket.io
+var mySocket = require('./config/socket.js');
+mySocket.start(io);
 
 // Expose app
 exports = module.exports = app;

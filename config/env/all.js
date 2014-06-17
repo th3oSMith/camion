@@ -28,6 +28,7 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/angular-bootstrap-datetimepicker/src/js/datetimepicker.js',
+				'public/lib/angular-socket-io/socket.js',
 				'public/lib/moment/moment.js'
 			]
 		},

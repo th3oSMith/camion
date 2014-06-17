@@ -1,8 +1,8 @@
 'use strict';
 
 // Campaigns controller
-angular.module('campaigns').controller('CampaignsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Campaigns', 'Papsables','Time','$interval',
-    function($scope, $stateParams, $location, Authentication, Campaigns, Papsables, Time, $interval) {
+angular.module('campaigns').controller('CampaignsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Campaigns', 'Papsables','Time','$interval','Campaignsws',
+    function($scope, $stateParams, $location, Authentication, Campaigns, Papsables, Time, $interval, Campaignsws) {
         $scope.authentication = Authentication;
         $scope.hideCalendar = true;
         $scope.slots = {};
@@ -124,11 +124,12 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
             });
         };
 
-        // Find PAPS and init countdown
+        // Find PAPS and init countdown and init Websocket
         $scope.papsOne = function (){
             $scope.campaign = Campaigns.get({
                 campaignId: $stateParams.campaignId
             });
+
 
             $scope.campaign.$promise.then(function(){
 
@@ -151,7 +152,12 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
                             $scope.papsables[el.object._id] = el.object;
 
                     });
-                    console.log($scope.papsables);
+                    
+                    Campaignsws.emit('subscribe', {paps: $scope.campaign._id});
+
+                    Campaignsws.on('update', function(data){
+                        $scope.campaign = data.campaign;
+                    });
 
                 });
             });
