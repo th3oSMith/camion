@@ -19,10 +19,10 @@ var getErrorMessage = function(err) {
 		switch (err.code) {
 			case 11000:
 			case 11001:
-				message = 'Username already exists';
+				message = 'Nom d\'utilisateur déjà pris';
 				break;
 			default:
-				message = 'Something went wrong';
+				message = 'Oups';
 		}
 	} else {
 		for (var errName in err.errors) {
@@ -127,7 +127,7 @@ exports.update = function(req, res) {
 		});
 	} else {
 		res.send(400, {
-			message: 'User is not signed in'
+			message: 'L\'utilisateur doit se connecter'
 		});
 	}
 };
@@ -158,7 +158,7 @@ exports.changePassword = function(req, res, next) {
 										res.send(400, err);
 									} else {
 										res.send({
-											message: 'Password changed successfully'
+											message: 'Mot de passe modifié avec succès'
 										});
 									}
 								});
@@ -166,23 +166,23 @@ exports.changePassword = function(req, res, next) {
 						});
 					} else {
 						res.send(400, {
-							message: 'Passwords do not match'
+							message: 'Mots de passes discordants'
 						});
 					}
 				} else {
 					res.send(400, {
-						message: 'Current password is incorrect'
+						message: 'Mauvais mot de passe actuel'
 					});
 				}
 			} else {
 				res.send(400, {
-					message: 'User is not found'
+					message: 'Utilisateur non trouvé'
 				});
 			}
 		});
 	} else {
 		res.send(400, {
-			message: 'User is not signed in'
+			message: 'L\'utilsiateur doit être connecté'
 		});
 	}
 };
@@ -265,7 +265,7 @@ exports.userByID = function(req, res, next, id) {
 exports.requiresLogin = function(req, res, next) {
 	if (!req.isAuthenticated()) {
 		return res.send(401, {
-			message: 'User is not logged in'
+			message: 'L\'utilisateur doit être connecté'
 		});
 	}
 
