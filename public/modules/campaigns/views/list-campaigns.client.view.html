@@ -1,14 +1,19 @@
 <section data-ng-controller="CampaignsController" data-ng-init="find()">
     <div class="page-header">
-        <h1>Campaigns</h1>
+        <h1>Campagnes</h1>
     </div>
     <div class="list-group">
+        <div class="list-group-item list-group-item-warning text-center" data-ng-hide="!campaigns.$resolved || campaigns.length">
+        Vous n'avez encore créé aucune campagne
+        </div>
         <a data-ng-repeat="campaign in campaigns" data-ng-href="#!/campaigns/{{campaign._id}}" class="list-group-item">
             <small class="list-group-item-text">{{campaign.created | date:'medium'}} / {{campaign.user.displayName}}</small>
             <h4 class="list-group-item-heading">{{campaign.name}}</h4>
         </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!campaigns.$resolved || campaigns.length">
-    	No Campaigns yet, why don't you <a href="/#!/campaigns/create">create one</a>?
+        <div class="list-group-item list-group-item-info text-center">
+                <a class="" href="/#!/campaigns/create">
+                    Nouvelle campagne
+                </a>
+        </div>
     </div>
 </section>
