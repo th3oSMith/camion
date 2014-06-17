@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	Campaign = mongoose.model('Campaign'),
 	Papsed = mongoose.model('Papsed'),
+	socket = require('../../config/socket.js'),
 	_ = require('lodash');
 
 /**
@@ -262,6 +263,10 @@ exports.paps = function(req, res) {
 							});
 						}
 					});
+
+					//On met à jour via les websockets car il y a quelqu'un qui a papsé
+					var io = socket.getIO();
+					io.sockets.in(campaign._id).emit('update', {campaign: campaign});
 
 					return res.send({message: 'PAPS Réussi', campaign: campaign});
 

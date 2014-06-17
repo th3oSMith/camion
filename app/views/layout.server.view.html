@@ -58,6 +58,8 @@
 	<!--Application JavaScript Files-->
 	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>
 	{% endfor %} 
+	<!-- Socket.io Javascript -->
+	<script type="text/javascript" src="/socket.io/socket.io.js">
 
 	{% if process.env.NODE_ENV === 'development' %}
 	<!--Livereload script rendered -->
