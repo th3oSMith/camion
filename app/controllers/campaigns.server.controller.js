@@ -269,7 +269,7 @@ exports.paps = function(req, res) {
 					//On met à jour via les websockets car il y a quelqu'un qui a papsé
 					var io = socket.getIO();
 					io.sockets.in(campaign._id).emit('update', {campaign: campaign});
-
+					console.log(Object.keys(io.sockets.in(campaign._id).connected).length);
 					return res.send({message: 'PAPS Réussi', campaign: campaign});
 
 				});

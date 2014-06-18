@@ -11,6 +11,16 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
         $scope.papsables = {};
         $scope.enableMax = false;
         $scope.enableMaxObject = {};
+        $scope.inRoom = false;
+        $scope.population = 0;
+
+        // Quand l'utilisateur quitte une page on le désinscrit des inscriptions websocket
+        $scope.$on("$locationChangeStart", function(event){
+            if ($scope.inRoom){
+                Campaignsws.emit('unsubscribe', {paps: $scope.campaign._id});
+                $scope.inRoom = false;
+            }
+        });
 
         // Create new Campaign
         $scope.create = function() {
@@ -155,10 +165,16 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
                     });
                     
                     Campaignsws.emit('subscribe', {paps: $scope.campaign._id});
+                    $scope.inRoom = true;
 
                     Campaignsws.on('update', function(data){
                         $scope.campaign = data.campaign;
                     });
+                    Campaignsws.on('population', function(data){
+                        $scope.population = data.population;
+                    });
+
+
 
                 });
             });
