@@ -123,11 +123,13 @@ exports.delete = function(req, res) {
  */
 exports.list = function(req, res) {
 
-	var q = Campaign.find().where('user').equals(req.user._id).sort('-created').populate('user', 'displayName');
+	var q = Campaign.find().sort('-created').populate('user', 'displayName');
 
 	if (req.query.future){
 		q.where('start').gte(new Date());
 		q.where('secret').equals(false);
+	}else{
+		q.where('user').equals(req.user._id);
 	}
 
 	q.exec(function(err, campaigns) {
