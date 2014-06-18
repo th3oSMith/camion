@@ -126,7 +126,7 @@ exports.list = function(req, res) {
 	var q = Campaign.find().sort('-created').populate('user', 'displayName');
 
 	if (req.query.future){
-		q.where('start').gte(new Date());
+		q.where('end').gte(new Date());
 		q.where('secret').equals(false);
 	}else{
 		q.where('user').equals(req.user._id);
@@ -258,6 +258,16 @@ exports.paps = function(req, res) {
 						});
 					}
 
+					var vide = true;
+					campaign.papsables.forEach(function (el){
+						if (el.amount !== 0)
+							vide = false;
+					});
+
+					if (vide){
+						campaign.end = new Date();
+					}
+
 					campaign.save(function(err) {
 						if (err) {
 							return res.send(400, {
@@ -269,7 +279,6 @@ exports.paps = function(req, res) {
 					//On met à jour via les websockets car il y a quelqu'un qui a papsé
 					var io = socket.getIO();
 					io.sockets.in(campaign._id).emit('update', {campaign: campaign});
-					console.log(Object.keys(io.sockets.in(campaign._id).connected).length);
 					return res.send({message: 'PAPS Réussi', campaign: campaign});
 
 				});

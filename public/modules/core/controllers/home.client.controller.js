@@ -38,7 +38,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         var minutes, hours, days, weeks, output;
 
         if (seconds <0 )
-            return 'PAPS fini';
+            return 'PAPS en cours';
 
         output = '';
 

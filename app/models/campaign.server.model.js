@@ -32,19 +32,19 @@
  	},
  	start: {
  		type: Date,
- 		required: 'Please set a start date for the campaign'
- 	},
- 	secret: {
- 		type: Boolean,
- 		default: true
- 	},
- 	max: {
- 		type: Number,
- 		default: -1
- 	},
- 	end: {
- 		type: Date,
- 		default: null
+        required: 'Please set a start date for the campaign'
+    },
+    secret: {
+        type: Boolean,
+        default: true
+    },
+    max: {
+        type: Number,
+        default: -1
+    },
+    end: {
+        type: Date,
+ 		required: 'Please set an end date for the campaign'
  	},
  	papsables: [{
  		object:{

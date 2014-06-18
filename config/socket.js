@@ -40,7 +40,6 @@ module.exports.start = function(ioSocket){
         });
 
         socket.on('disconnect', function () {
-            
             connected[room]--;
             io.sockets.in(room).emit('population', {population: connected[room]});
             console.log('Client déconnecté');
