@@ -30,6 +30,7 @@ angular.module('campaigns').controller('CampaignsController', ['$scope', '$state
                 name: this.name,
                 start: this.start,
                 max: this.max,
+                end: this.end,
                 papsables: this.campaignPapsables,
                 description: this.description,
                 secret: this.secret || false
