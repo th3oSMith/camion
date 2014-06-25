@@ -402,3 +402,25 @@ exports.removeOAuthProvider = function(req, res, next) {
 		});
 	}
 };
+
+/**
+ * List of Users
+ */
+exports.list = function(req, res) {
+	
+	if (req.user.roles.indexOf('admin') === -1){
+		return res.send(403, {
+			message: 'Vous devez être admin'
+		});
+	}
+
+	User.find().sort('-created').select('displayName roles email').exec(function(err, papsables) {
+		if (err) {
+			return res.send(400, {
+				message: getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(papsables);
+		}
+	});
+};

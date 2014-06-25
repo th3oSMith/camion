@@ -1,0 +1,19 @@
+<section data-ng-controller="AdminController">
+
+	<div class="page-header">
+        <h1>Administration</h1>
+    </div>
+
+	<tabset>
+		<tab select="getUsers()" heading="Utilisateurs">
+			<ng-include src="'modules/administration/views/userAdmin.client.view.html'"></ng-include>
+		</tab>
+
+		<tab heading="Campagnes">
+			<p>Gestion des campagnes</p>
+		</tab>
+
+	</tabset>
+
+
+</section>

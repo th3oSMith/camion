@@ -1,0 +1,11 @@
+<div>
+	<h3>Gestion des utilisateurs</h3>
+
+	<ul class="list-group">
+		<li class="list-group-item list-group-item-info"><b>Utilisateurs</b></li>
+		<li class="list-group-item" ng-repeat="user in users">
+			{{user.displayName}} - {{user.email}} - 
+			<span ng-repeat="role in user.roles" class="label" ng-class="{'label-primary': role=='user', 'label-danger': role=='admin'}">{{role}}</span>
+		</li>
+	</ul>
+</div>
