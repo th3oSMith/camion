@@ -9,7 +9,7 @@ module.exports.getIO = function() {return io;};
 module.exports.start = function(ioSocket){
 
     io = ioSocket;
-    paps = io.on('connection', function(socket){
+    paps = io.of('/ws').on('connection', function(socket){
         var room;
 
         console.log('user connected !!!');
@@ -24,7 +24,7 @@ module.exports.start = function(ioSocket){
             else
                 connected[room]++;
 
-            io.sockets.in(room).emit('population', {population: connected[room]});
+            io.of('/ws').in(room).emit('population', {population: connected[room]});
             console.log(connected[room]);
 
         });
@@ -34,14 +34,14 @@ module.exports.start = function(ioSocket){
             console.log('Sortie de la room '+room);
             connected[room]--;
 
-            io.sockets.in(room).emit('population', {population: connected[room]});
+            io.of('/ws').in(room).emit('population', {population: connected[room]});
             room = null;
 
         });
 
         socket.on('disconnect', function () {
             connected[room]--;
-            io.sockets.in(room).emit('population', {population: connected[room]});
+            io.of('/ws').in(room).emit('population', {population: connected[room]});
             console.log('Client déconnecté');
         });
 
