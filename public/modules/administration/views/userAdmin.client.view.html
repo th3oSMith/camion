@@ -4,8 +4,12 @@
 	<ul class="list-group">
 		<li class="list-group-item list-group-item-info"><b>Utilisateurs</b></li>
 		<li class="list-group-item" ng-repeat="user in users">
-			{{user.displayName}} - {{user.email}} - 
+			{{user.displayName}} - {{user.username}} - {{user.email}} - 
 			<span ng-repeat="role in user.roles" class="label" ng-class="{'label-primary': role=='user', 'label-danger': role=='admin'}">{{role}}</span>
+
+            <div class="text-right">
+                <a ng-click="changeAdmin(user)"<i title="Donner les droits admin" class="glyphicon" ng-class="{'glyphicon-star': !isAdmin(user), 'glyphicon-star-empty': isAdmin(user) }"></i></a>
+            </div>
 		</li>
 	</ul>
 </div>

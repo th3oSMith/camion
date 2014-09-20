@@ -43,7 +43,8 @@ module.exports = function(app) {
 	app.route('/auth/linkedin/callback').get(users.oauthCallback('linkedin'));
 
 	// Routes pour l'administration
-	app.route('/admin/users').get(users.requiresLogin, users.list);
+	app.route('/admin/users').get(users.requiresLogin, users.requiresAdmin, users.list);
+	app.route('/admin/users/:userId').put(users.requiresLogin, users.requiresAdmin, users.administration);
 
 	// Finish by binding the user middleware
 	app.param('userId', users.userByID);

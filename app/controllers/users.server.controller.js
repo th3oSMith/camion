@@ -273,6 +273,19 @@ exports.requiresLogin = function(req, res, next) {
 };
 
 /**
+ * Require admin routing middleware
+ */
+exports.requiresAdmin = function(req, res, next) {
+	if (req.user.roles.indexOf('admin') === -1){
+		return res.send(403, {
+			message: 'Vous devez être admin'
+		});
+	}
+
+	next();
+};
+
+/**
  * User authorizations routing middleware
  */
 exports.hasAuthorization = function(roles) {
@@ -408,13 +421,7 @@ exports.removeOAuthProvider = function(req, res, next) {
  */
 exports.list = function(req, res) {
 	
-	if (req.user.roles.indexOf('admin') === -1){
-		return res.send(403, {
-			message: 'Vous devez être admin'
-		});
-	}
-
-	User.find().sort('-created').select('displayName roles email').exec(function(err, papsables) {
+	User.find().sort('-created').select('displayName roles email username').exec(function(err, papsables) {
 		if (err) {
 			return res.send(400, {
 				message: getErrorMessage(err)
@@ -424,3 +431,32 @@ exports.list = function(req, res) {
 		}
 	});
 };
+
+/**
+ * Modifie admin right for a user
+ */
+ exports.administration = function (req, res, id) {
+ 	
+ 	if (req.query.action === 'changeAdmin') {
+
+ 		var index = req.profile.roles.indexOf('admin');
+ 		console.log(index);
+	 	if (index !== -1) {
+	 		req.profile.roles.splice(index, 1);
+	 	} else {
+	 		console.log('test');
+	 		req.profile.roles.push('admin');
+	 	}
+
+	 	req.profile.save(function(err) {
+			if (err) {
+				return res.send(400, {
+					message: getErrorMessage(err)
+				});
+			} else {
+				res.jsonp({roles: req.profile.roles});
+			}
+		});
+	}
+
+ };
