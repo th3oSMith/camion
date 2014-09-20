@@ -1,0 +1,11 @@
+<div>
+    <h3>Gestion des Campagnes</h3>
+
+    <div class="list-group">
+        <p class="list-group-item list-group-item-info"><b>Campagnes</b></p>
+        <a data-ng-repeat="campaign in campaigns" data-ng-href="#!/campaigns/{{campaign._id}}" class="list-group-item">
+        <small class="list-group-item-text">{{campaign.created | date:'medium'}} / {{campaign.user.displayName}}</small>
+        <h4 class="list-group-item-heading">{{campaign.name}}</h4>
+            </a>
+    </div>
+</div>

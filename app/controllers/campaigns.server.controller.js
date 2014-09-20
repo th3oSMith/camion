@@ -332,7 +332,7 @@ exports.campaignByID = function(req, res, next, id) {
  * Campaign authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.campaign.user.id !== req.user.id) {
+	if (req.campaign.user.id !== req.user.id && req.user.roles.indexOf('admin') !== -1) {
 		return res.send(403, 'User is not authorized');
 	}
 	next();
