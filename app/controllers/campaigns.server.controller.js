@@ -129,7 +129,9 @@ exports.list = function(req, res) {
 		q.where('end').gte(new Date());
 		q.where('secret').equals(false);
 	}else{
-		q.where('user').equals(req.user._id);
+		if (req.user.roles.indexOf('admin') === -1 || req.query.admin !== 'true' ) {
+			q.where('user').equals(req.user._id);
+		}
 	}
 
 	q.exec(function(err, campaigns) {

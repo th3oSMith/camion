@@ -13,7 +13,7 @@ angular.module('administration').controller('AdminController', ['$scope', 'Authe
 		};
 
         $scope.getCampaigns = function(){
-            $scope.campaigns = Campaigns.query();
+            $scope.campaigns = Campaigns.query({admin: true});
         }
 
         $scope.isAdmin = function(user) {
